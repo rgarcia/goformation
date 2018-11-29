@@ -154,6 +154,16 @@ func (rg *ResourceGenerator) processSpec(specname string, data []byte) (*CloudFo
 		return nil, err
 	}
 
+	// hack: add in dynamodb billingmode
+	if _, ok := spec.Resources["AWS::DynamoDB::Table"]; ok {
+		spec.Resources["AWS::DynamoDB::Table"].Properties["BillingMode"] = Property{
+			Documentation: "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-billingmode",
+			PrimitiveType: "String",
+			Required:      false,
+			UpdateType:    "Mutable",
+		}
+	}
+
 	// Add the resources processed to the ResourceGenerator output
 	for name := range spec.Resources {
 		rg.Results.AllResources[name] = structName(name)

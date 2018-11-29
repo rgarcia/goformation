@@ -11170,6 +11170,9 @@ var samSchema = `{
                             },
                             "type": "array"
                         },
+                        "BillingMode": {
+                            "type": "string"
+                        },
                         "GlobalSecondaryIndexes": {
                             "items": {
                                 "$ref": "#/definitions/AWS::DynamoDB::Table.GlobalSecondaryIndex"
